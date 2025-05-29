@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <fstream>
+#include "rapid.h"
 
 //--------
 // Matrix
@@ -14,6 +15,8 @@
 
 double *create_matrix_in_dram(uint64_t num_rows, uint64_t num_cols, double val=0);
 void destroy_matrix_in_dram(double *matrix);
+double *create_matrix_in_fam(rapid_handle fam, uint64_t num_rows, uint64_t num_cols, double val=0);
+void destroy_matrix_in_fam(rapid_handle fam, double *matrix);
 void print_matrix(double *matrix, uint64_t num_rows, uint64_t num_cols);
 
 //--------------

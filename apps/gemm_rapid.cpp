@@ -5,11 +5,12 @@
 //#include <format>
 #include <stdio.h>
 #include "gemm.h"
+#include "rapid.h"
 
 int main()
 {
   auto master_tt_start = std::chrono::high_resolution_clock::now();
-
+  rapid_handle fam = rapid_initialize();
   uint64_t num_repeats = 4;
 
   std::vector<uint64_t> dim_sizes;
@@ -30,9 +31,9 @@ int main()
       uint64_t B2 = dim_size;
       uint64_t C1 = A1;
       uint64_t C2 = B2;
-      double *A = create_matrix_in_dram(A1, A2, 1.1);
-      double *B = create_matrix_in_dram(B1, B2, 2.2);
-      double *C = create_matrix_in_dram(C1, C2);
+      double *A = create_matrix_in_fam(fam, A1, A2, 1.1);
+      double *B = create_matrix_in_fam(fam, B1, B2, 2.2);
+      double *C = create_matrix_in_fam(fam, C1, C2);
 
       auto tt_start = std::chrono::high_resolution_clock::now();
       /// Kernel
@@ -41,20 +42,20 @@ int main()
               C);
       auto tt_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> tt_duration = tt_end - tt_start;
-      std::cout << "DRAM no-tiling dim_size: " << dim_size << ", r_i: " << r_i << ", time_exe(s): " << tt_duration.count() << "\n";
+      std::cout << "FAM no-tiling dim_size: " << dim_size << ", r_i: " << r_i << ", time_exe(s): " << tt_duration.count() << "\n";
 
 //        print_matrix(C, C1, C2);
       no_tiling_exe_times.push_back(tt_duration.count());
-      destroy_matrix_in_dram(A);
-      destroy_matrix_in_dram(B);
-      destroy_matrix_in_dram(C);
+      destroy_matrix_in_fam(fam, A);
+      destroy_matrix_in_fam(fam, B);
+      destroy_matrix_in_fam(fam, C);
     }
     /// Save all exe times
 //    std::string no_tiling_filename = std::format("output.gemm.dram.no-tiling.size{}.log", dim_size);
     std::string no_tiling_filename;
     {
       std::stringstream ss;
-      ss << "output.gemm.dram.no-tiling.size" << dim_size << ".log";
+      ss << "output.gemm.fam.no-tiling.size" << dim_size << ".log";
       no_tiling_filename = ss.str();
     }
     save_exe_times_into_file(no_tiling_filename, no_tiling_exe_times);
@@ -75,9 +76,9 @@ int main()
       uint64_t B2_tile = tile_dim_size;
       uint64_t C1 = A1;
       uint64_t C2 = B2;
-      double *A = create_matrix_in_dram(A1, A2, 1.1);
-      double *B = create_matrix_in_dram(B1, B2, 2.2);
-      double *C = create_matrix_in_dram(C1, C2);
+      double *A = create_matrix_in_fam(fam, A1, A2, 1.1);
+      double *B = create_matrix_in_fam(fam, B1, B2, 2.2);
+      double *C = create_matrix_in_fam(fam, C1, C2);
 
       auto tt_start = std::chrono::high_resolution_clock::now();
       /// Kernel
@@ -86,20 +87,20 @@ int main()
                      C);
       auto tt_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> tt_duration = tt_end - tt_start;
-      std::cout << "DRAM tiling dim_size: " << dim_size << ", r_i: " << r_i << ", time_exe(s): " << tt_duration.count() << "\n";
+      std::cout << "FAM tiling dim_size: " << dim_size << ", r_i: " << r_i << ", time_exe(s): " << tt_duration.count() << "\n";
 
 //        print_matrix(C, C1, C2);
       tiling_exe_times.push_back(tt_duration.count());
-      destroy_matrix_in_dram(A);
-      destroy_matrix_in_dram(B);
-      destroy_matrix_in_dram(C);
+      destroy_matrix_in_fam(fam, A);
+      destroy_matrix_in_fam(fam, B);
+      destroy_matrix_in_fam(fam, C);
     }
     /// Save all exe times
 //    std::string tiling_filename = std::format("output.gemm.dram.tiling.size{}.log", dim_size);
     std::string tiling_filename;
     {
       std::stringstream ss;
-      ss << "output.gemm.dram.tiling.size" << dim_size << ".log";
+      ss << "output.gemm.fam.tiling.size" << dim_size << ".log";
       tiling_filename = ss.str();
     }
     save_exe_times_into_file(tiling_filename, tiling_exe_times);
@@ -110,11 +111,11 @@ int main()
   }
 
   /// Save results to a collection file
-  std::string collect_filename("output.gemm.dram.collection.csv");
+  std::string collect_filename("output.gemm.fam.collection.csv");
   std::ofstream fout;
   fout.open(collect_filename);
   if (fout.is_open()) {
-    std::string header("Matrix_size,DRAM.No-Tiling(s),DRAM.Tiling(s)");
+    std::string header("Matrix_size,RAPID.No-Tiling(s),RAPID.Tiling(s)");
     fout << header << "\n";
     for (uint64_t row_i = 0; row_i < dim_sizes.size(); ++row_i) {
       fout << dim_sizes[row_i] << "," << gemm_no_tiling_avg_times[row_i] << "," << gemm_tiling_avg_times[row_i] << "\n";
