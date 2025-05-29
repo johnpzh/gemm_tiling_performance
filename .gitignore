@@ -1,0 +1,10 @@
+# Build
+cmake-build*/
+build*/
+
+# Output
+output*
+
+# IDE
+.idea/
+.vscode/
