@@ -80,14 +80,11 @@ void gemm_v1_tiling(double *A, uint64_t A1, uint64_t A2, uint64_t A1_tile, uint6
                     double *B, uint64_t B1, uint64_t B2, uint64_t B1_tile, uint64_t B2_tile,
                     double *C)
 {
-  uint64_t ii;
-  uint64_t kk;
-  uint64_t jj;
-  for (ii = 0; ii < A1; ii += A1_tile) {
+  for (uint64_t ii = 0; ii < A1; ii += A1_tile) {
     uint64_t i_bound = std::min(ii + A1_tile, A1);
-    for (kk = 0; kk < A2; kk += A2_tile) {
+    for (uint64_t kk = 0; kk < A2; kk += A2_tile) {
       uint64_t k_bound = std::min(kk + A2_tile, A2);
-      for (jj = 0; jj < B2; jj += B2_tile) {
+      for (uint64_t jj = 0; jj < B2; jj += B2_tile) {
         uint64_t j_bound = std::min(jj + B2_tile, B2);
         /// Tile
         for (uint64_t i = ii; i < i_bound; ++i) {
