@@ -5,7 +5,6 @@
 //#include <format>
 #include <stdio.h>
 #include "gemm.h"
-#include "rapid.h"
 
 int main()
 {

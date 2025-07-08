@@ -36,6 +36,13 @@ void gemm_v3_tiling_disorder(double *A, uint64_t A1, uint64_t A2, uint64_t A1_ti
                              double *B, uint64_t B1, uint64_t B2, uint64_t B1_tile, uint64_t B2_tile,
                              double *C);
 
+void gemm_omp_v0(double *A, uint64_t A1, uint64_t A2,
+                 double *B, uint64_t B1, uint64_t B2,
+                 double *C);
+void gemm_omp_v1_tiling(double *A, uint64_t A1, uint64_t A2, uint64_t A1_tile, uint64_t A2_tile,
+                        double *B, uint64_t B1, uint64_t B2, uint64_t B1_tile, uint64_t B2_tile,
+                        double *C);
+
 //-----------
 // Utilities
 //-----------
