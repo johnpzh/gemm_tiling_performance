@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(tiling_gemm)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories("include")
 
@@ -37,11 +38,19 @@ target_link_libraries(gemm_rapid.v2.inorder PRIVATE simplegemm)
 add_executable(gemm_rapid.v3.inorder apps/gemm_rapid.v3.inorder.cpp)
 target_link_libraries(gemm_rapid.v3.inorder PRIVATE simplegemm)
 
+add_executable(gemm_rapid.tile_size.seq apps/gemm_rapid.tile_size.seq.cpp)
+target_link_libraries(gemm_rapid.tile_size.seq PRIVATE simplegemm)
 
 # Parallel GEMM DRAM
 add_executable(gemm_dram.omp apps/gemm_dram.omp.cpp)
 target_link_libraries(gemm_dram.omp PRIVATE simplegemm)
 
+add_executable(gemm_dram.tile_size.omp apps/gemm_dram.tile_size.omp.cpp)
+target_link_libraries(gemm_dram.tile_size.omp PRIVATE simplegemm)
+
 # Parallel GEMM DRAM
 add_executable(gemm_rapid.omp apps/gemm_rapid.omp.cpp)
 target_link_libraries(gemm_rapid.omp PRIVATE simplegemm)
+
+add_executable(gemm_rapid.tile_size.omp apps/gemm_rapid.tile_size.omp.cpp)
+target_link_libraries(gemm_rapid.tile_size.omp PRIVATE simplegemm)
