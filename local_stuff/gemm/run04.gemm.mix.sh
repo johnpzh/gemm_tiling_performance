@@ -21,10 +21,8 @@ cd ${OUTPUT_DIR}
 # DRAM, Tiling, TileSize, NumThreads
 # Matrix-size-4096
 # Matrix-size-8192
-#"${BUILD_DIR}/gemm_dram.tile_size.omp"
+"${BUILD_DIR}/gemm_dram.tile_size.omp"
 
 # Extra
 # FAM, DB, BufferSize, 1Thread
-/home/peng599/pppp/amais_project/soft_cache_gemm/build/gemm_rapid.buffer_size.seq
-
-
+#/home/peng599/pppp/amais_project/soft_cache_gemm/build/gemm_rapid.buffer_size.seq

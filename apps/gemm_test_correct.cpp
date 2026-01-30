@@ -9,7 +9,7 @@
 int main()
 {
   auto master_tt_start = std::chrono::high_resolution_clock::now();
-  uint64_t dim_size = 2;
+  uint64_t dim_size = 5;
   uint64_t A1 = dim_size;
   uint64_t A2 = dim_size;
   uint64_t B1 = A2;
@@ -22,12 +22,12 @@ int main()
 
   auto tt_start = std::chrono::high_resolution_clock::now();
   /// Kernel
-//  gemm_v0(A, A1, A2,
-//          B, B1, B2,
-//          C);
-  gemm_v2_tiling_disorder(A, A1, A2, 2, 2,
-                          B, B1, B2, 2, 2,
-                          C);
+  gemm_v0(A, A1, A2,
+          B, B1, B2,
+          C);
+//  gemm_v2_tiling_disorder(A, A1, A2, 2, 2,
+//                          B, B1, B2, 2, 2,
+//                          C);
   auto tt_end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> tt_duration = tt_end - tt_start;
   std::cout << "DRAM test correctness dim_size: " << dim_size << ", time_exe(s): " << tt_duration.count() << "\n";

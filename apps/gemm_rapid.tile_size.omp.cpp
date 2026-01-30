@@ -14,28 +14,30 @@ int main()
   auto master_tt_start = std::chrono::high_resolution_clock::now();
   rapid_handle fam = rapid_initialize();
 
-  uint64_t num_repeats = 4;
+  uint64_t num_repeats = 1;
 
   std::vector<uint64_t> dim_sizes;
-  for (uint64_t dim = 4096; dim <= 8192; dim *= 2) {
-//  for (uint64_t dim = 512; dim <= 1024; dim *= 2) {
+//  for (uint64_t dim = 4096; dim <= 8192; dim *= 2) {
+  for (uint64_t dim = 16384; dim <= 16384; dim *= 2) {
     dim_sizes.push_back(dim);
   }
 //  std::vector<double> gemm_no_tiling_avg_times;
 //  std::vector<double> gemm_tiling_avg_times;
 
   std::vector<uint64_t> tile_dim_sizes;
-  for (uint64_t dim = 8; dim <= 2048; dim *= 2) {
-//  for (uint64_t dim = 32; dim <= 64; dim *= 2) {
+//  for (uint64_t dim = 8; dim <= 2048; dim *= 2) {
+  for (uint64_t dim = 256; dim <= 256; dim *= 2) {
     tile_dim_sizes.push_back(dim);
   }
 
   std::vector<uint64_t> num_threads;
-  for (uint64_t th = 1; th <= 16; th *= 2) {
-//  for (uint64_t th = 1; th <= 2; th *= 2) {
+//  for (uint64_t th = 1; th <= 16; th *= 2) {
+  for (uint64_t th = 4; th <= 16; th *= 2) {
     num_threads.push_back(th);
   }
-  num_threads.push_back(28);
+//  num_threads.push_back(28);
+//  num_threads.push_back(32);
+//  num_threads.push_back(56);
 
 
   /// Tiling
@@ -87,9 +89,11 @@ int main()
                              C);
           auto tt_end = std::chrono::high_resolution_clock::now();
           std::chrono::duration<double> tt_duration = tt_end - tt_start;
-          std::cout << "FAM tiling dim_size: " << dim_size << ", tile_dim_size: " << tile_dim_size << ", num_threads: " << num_thd << ", r_i: " << r_i
-                    << ", time_exe(s): "
-                    << tt_duration.count() << std::endl;
+          std::cout << "FAM tiling dim_size: " << dim_size
+                    << ", tile_dim_size: " << tile_dim_size
+                    << ", num_threads: " << num_thd
+                    << ", r_i: " << r_i + 1 << "/" << num_repeats
+                    << ", time_exe(s): " << tt_duration.count() << std::endl;
 
 //        print_matrix(C, C1, C2);
           tiling_exe_times.push_back(tt_duration.count());

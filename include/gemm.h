@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <fstream>
+#include <stdlib.h>
 #include "rapid.h"
 
 //--------
@@ -17,6 +18,8 @@ double *create_matrix_in_dram(uint64_t num_rows, uint64_t num_cols, double val=0
 void destroy_matrix_in_dram(double *matrix);
 double *create_matrix_in_fam(rapid_handle fam, uint64_t num_rows, uint64_t num_cols, double val=0);
 void destroy_matrix_in_fam(rapid_handle fam, double *matrix);
+double *create_matrix_in_disk(uint64_t num_rows, uint64_t num_cols, double val=0);
+void destroy_matrix_in_disk(double *matrix, uint64_t num_rows, uint64_t num_cols);
 void print_matrix(double *matrix, uint64_t num_rows, uint64_t num_cols);
 
 //--------------
@@ -42,6 +45,9 @@ void gemm_omp_v0(double *A, uint64_t A1, uint64_t A2,
 void gemm_omp_v1_tiling(double *A, uint64_t A1, uint64_t A2, uint64_t A1_tile, uint64_t A2_tile,
                         double *B, uint64_t B1, uint64_t B2, uint64_t B1_tile, uint64_t B2_tile,
                         double *C);
+void gemm_omp_v2_disk(double *A, uint64_t A1, uint64_t A2,
+                      double *B, uint64_t B1, uint64_t B2,
+                      double *C);
 
 //-----------
 // Utilities
@@ -75,6 +81,14 @@ void save_exe_times_into_file(std::string filename, std::vector<T> exe_times)
   } else {
     std::cerr << "Error: cannot create file " << filename << "\n";
   }
+}
+
+template<class T>
+T get_random_element(T *A, uint64_t A1, uint64_t A2)
+{
+  uint64_t i = rand() % A1;
+  uint64_t j = rand() % A2;
+  return A[i * A2 + j];
 }
 
 #endif //TILING_GEMM_GEMM_H

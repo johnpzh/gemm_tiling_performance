@@ -8,9 +8,9 @@ mkdir -p ${OUTPUT_DIR}
 
 cd ${OUTPUT_DIR}
 
-dram_gemm_app="${BUILD_DIR}/gemm_dram.omp"
-rapid_gemm_app="${BUILD_DIR}/gemm_rapid.omp"
+dram_gemm_app="${BUILD_DIR}/gemm_disk.omp"
+# rapid_gemm_app="${BUILD_DIR}/gemm_rapid.omp"
 
 # Run
 ${dram_gemm_app}
-${rapid_gemm_app}
+# ${rapid_gemm_app}

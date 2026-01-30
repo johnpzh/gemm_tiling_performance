@@ -45,12 +45,28 @@ target_link_libraries(gemm_rapid.tile_size.seq PRIVATE simplegemm)
 add_executable(gemm_dram.omp apps/gemm_dram.omp.cpp)
 target_link_libraries(gemm_dram.omp PRIVATE simplegemm)
 
+add_executable(gemm_dram.omp.v2.command_option apps/gemm_dram.omp.v2.command_option.cpp)
+target_link_libraries(gemm_dram.omp.v2.command_option PRIVATE simplegemm)
+
 add_executable(gemm_dram.tile_size.omp apps/gemm_dram.tile_size.omp.cpp)
 target_link_libraries(gemm_dram.tile_size.omp PRIVATE simplegemm)
 
-# Parallel GEMM DRAM
+add_executable(gemm_dram.tile_size.omp.v2.command_option apps/gemm_dram.tile_size.omp.v2.command_option.cpp)
+target_link_libraries(gemm_dram.tile_size.omp.v2.command_option PRIVATE simplegemm)
+
+# Parallel GEMM RAPID
 add_executable(gemm_rapid.omp apps/gemm_rapid.omp.cpp)
 target_link_libraries(gemm_rapid.omp PRIVATE simplegemm)
 
+add_executable(gemm_rapid.omp.v2.command_option apps/gemm_rapid.omp.v2.command_option.cpp)
+target_link_libraries(gemm_rapid.omp.v2.command_option PRIVATE simplegemm)
+
 add_executable(gemm_rapid.tile_size.omp apps/gemm_rapid.tile_size.omp.cpp)
 target_link_libraries(gemm_rapid.tile_size.omp PRIVATE simplegemm)
+
+add_executable(gemm_rapid.tile_size.omp.v2.command_option apps/gemm_rapid.tile_size.omp.v2.command_option.cpp)
+target_link_libraries(gemm_rapid.tile_size.omp.v2.command_option PRIVATE simplegemm)
+
+# GEMM DISK
+add_executable(gemm_disk.omp apps/gemm_disk.omp.cpp)
+target_link_libraries(gemm_disk.omp PRIVATE simplegemm)

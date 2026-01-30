@@ -14,10 +14,10 @@ int main()
   auto master_tt_start = std::chrono::high_resolution_clock::now();
 //  rapid_handle fam = rapid_initialize();
 
-  uint64_t num_repeats = 4;
+  uint64_t num_repeats = 1;
 
   std::vector<uint64_t> dim_sizes;
-  for (uint64_t dim = 4096; dim <= 8192; dim *= 2) {
+  for (uint64_t dim = 16384; dim <= 16384; dim *= 2) {
 //  for (uint64_t dim = 512; dim <= 1024; dim *= 2) {
     dim_sizes.push_back(dim);
   }
@@ -25,7 +25,7 @@ int main()
 //  std::vector<double> gemm_tiling_avg_times;
 
   std::vector<uint64_t> tile_dim_sizes;
-  for (uint64_t dim = 8; dim <= 2048; dim *= 2) {
+  for (uint64_t dim = 128; dim <= 512; dim *= 2) {
 //  for (uint64_t dim = 32; dim <= 64; dim *= 2) {
     tile_dim_sizes.push_back(dim);
   }
@@ -36,6 +36,8 @@ int main()
     num_threads.push_back(th);
   }
   num_threads.push_back(28);
+  num_threads.push_back(32);
+  num_threads.push_back(56);
 
 
   /// Tiling
