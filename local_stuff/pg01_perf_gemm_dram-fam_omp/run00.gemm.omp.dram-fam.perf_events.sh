@@ -70,9 +70,9 @@ mkdir -p "${output_dir}"
 TT_TIME_START=$(date +%s.%N)
 
 # FAM
-for ((matrix_size = 32; matrix_size <= 16384; matrix_size *= 2)); do
+for ((matrix_size = 16384; matrix_size <= 16384; matrix_size *= 2)); do
   for ((tile_size = 16384; tile_size <= 16384; tile_size *= 2)); do
-    for ((num_threads = 28; num_threads <= 28; num_threads *= 2)); do
+    for ((num_threads = 1; num_threads <= 1; num_threads *= 2)); do
       rapid_out_file="${output_dir}/${RAPID_BASE_NAME}.matrix-${matrix_size}.tile-${tile_size}.thread-${num_threads}.log"
       COMMAND="${rapid_app} ${matrix_size} ${num_threads}"
       set -x
@@ -84,9 +84,9 @@ done
 
 
 # DRAM
-for ((matrix_size = 32; matrix_size <= 16384; matrix_size *= 2)); do
+for ((matrix_size = 16384; matrix_size <= 16384; matrix_size *= 2)); do
   for ((tile_size = 16384; tile_size <= 16384; tile_size *= 2)); do
-    for ((num_threads = 28; num_threads <= 28; num_threads *= 2)); do
+    for ((num_threads = 1; num_threads <= 1; num_threads *= 2)); do
      dram_out_file="${output_dir}/${DRAM_BASE_NAME}.matrix-${matrix_size}.tile-${tile_size}.thread-${num_threads}.log"
      COMMAND="${dram_app} ${matrix_size} ${num_threads}"
      set -x

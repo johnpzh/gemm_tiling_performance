@@ -37,12 +37,12 @@ int main(int argc, char *argv[])
 
   auto tt_start = std::chrono::high_resolution_clock::now();
   /// Kernel
-//      gemm_v0(A, A1, A2,
-//              B, B1, B2,
-//              C);
-  gemm_omp_v0(A, A1, A2,
+      gemm_v0(A, A1, A2,
               B, B1, B2,
               C);
+//  gemm_omp_v0(A, A1, A2,
+//              B, B1, B2,
+//              C);
   auto tt_end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> tt_duration = tt_end - tt_start;
   std::cout << "FAM no-tiling matrix_size: " << matrix_size

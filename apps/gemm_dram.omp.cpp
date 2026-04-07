@@ -13,11 +13,11 @@ int main()
 {
   auto master_tt_start = std::chrono::high_resolution_clock::now();
 
-  uint64_t num_repeats = 1;
+  uint64_t num_repeats = 10;
 
   std::vector<uint64_t> dim_sizes;
 //  for (uint64_t dim = 512; dim <= 8192; dim *= 2) {
-  for (uint64_t dim = 32; dim <= 2048; dim *= 2) {
+  for (uint64_t dim = 4096; dim <= 16384; dim *= 2) {
     dim_sizes.push_back(dim);
   }
 //  std::vector<double> gemm_no_tiling_avg_times;

@@ -126,10 +126,10 @@ if __name__ == "__main__":
     # rapid_tma_l2_bound_list = []
     # rapid_tma_l3_bound_list = []
 
-    matrix_size_list = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384] # 4096, 8192
-    # matrix_size_list = [32, 64, 128] # 4096, 8192
+    # matrix_size_list = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384] # 4096, 8192
+    matrix_size_list = [16384] # 4096, 8192
     tile_size_list = [16384] # 8 - 2048
-    num_threads_list = [28] # 1 - 16
+    num_threads_list = [1] # 1 - 16
 
     # for _ in range(4, 15):
 
